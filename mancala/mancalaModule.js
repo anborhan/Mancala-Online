@@ -19,9 +19,9 @@ function newGamePockets() {
 function startGame () {
   let gameBoard = newGamePockets();
   const startingPlayer = 1;
-  const turn = 0;
+  const turn = 1;
   console.log("Initial Board: " + gameBoard);
-  return {gameBoard, startingPlayer, currentPlayer: startingPlayer, turn};
+  return {gameBoard, startingPlayer, currentPlayer: startingPlayer, turn, gameOver: false};
 };
 
 function takeTurn(myPlayerNumber, myPocketNumber, gameState) {
@@ -40,6 +40,8 @@ function takeTurn(myPlayerNumber, myPocketNumber, gameState) {
     output.error = "You can't pick your mancala!"
   } else if (currentPocketIndex >= myMancala || currentPocketIndex < myPocketMinimum) {
     output.error = "You can't pick an opponent's pocket!"
+  } else if (output.gameBoard[currentPocketIndex] === 0) {
+    output.error = "You can't select a pocket with no stones in it!"
   }
 
   // success
@@ -59,10 +61,8 @@ function takeTurn(myPlayerNumber, myPocketNumber, gameState) {
     if (isGameOver(output.gameBoard)/*There are no more playable pockets*/) {
       output.gameOver = true;
       if (output.scores[0] === output.scores[1]) {
-        output.winner = 0;
         output.tie = true;
-      }
-      output.winner = output.scores[0] > output.scores[1] ? 1 : 2;
+      } else output.winner = output.scores[0] > output.scores[1] ? 1 : 2;
     } else { 
       output.turn += 1;
     }
@@ -72,8 +72,26 @@ function takeTurn(myPlayerNumber, myPocketNumber, gameState) {
 }
 
 function isGameOver(gameBoard) {
-  console.log("to do: is game over?")
-  return false;
+  let playerOneGameBoard = gameBoard.slice(0, 5)
+  let playerTwoGameBoard = gameBoard.slice(7, 12)
+//need to add that other pockets go to score
+  const test = playerOneGameBoard.every(isZero)
+  if (test) {
+    let extraScore = playerTwoGameBoard.reduce((a,b)=>a+b)
+    gameBoard[13] +=extraScore;
+    return true;
+  } else {
+    const test2 = playerTwoGameBoard.every(isZero)
+    if (test2) {
+      let extraScore = playerOneGameBoard.reduce((a,b)=>a+b)
+      gameBoard[7] +=extraScore;
+      return true;
+    } else return false;
+  } 
+}
+
+function isZero(currentValue) {
+  return currentValue === 0;
 }
 
 function pocketInformation(myPlayerNumber, myPocketNumber) {
@@ -102,6 +120,7 @@ function setPocketIndex (myPocketNumber) {
 };
 
 function distribute (pocketInfo, gameBoard) {
+  console.log(gameBoard)
   const {opponentScorePocket} = pocketInfo;
 
   let hand = collect(pocketInfo.currentPocketIndex, gameBoard);
@@ -111,7 +130,6 @@ function distribute (pocketInfo, gameBoard) {
     gameBoard[pocketInfo.currentPocketIndex] = gameBoard[pocketInfo.currentPocketIndex] + 1;
     hand--;
   }
-
   return pocketInfo.currentPocketIndex;
 };
 
@@ -138,7 +156,9 @@ function checkForRepeatTurn(pocketInfo) {
 }
 
 function checkFinalPocket(pocketInfo, gameBoard) {
+  //possible issue with when the stone lands in space 0
   const {myPocketMinimum, myMancala, currentPocketIndex} = pocketInfo;
+  //console.log(myPocketMinimum, myMancala, currentPocketIndex, gameBoard[currentPocketIndex])
     if (currentPocketIndex < myMancala && currentPocketIndex >= myPocketMinimum) {
       if (gameBoard[currentPocketIndex] === 1) {
         return true;
@@ -179,4 +199,4 @@ function getOtherPlayerNumber(myPlayerNumber){
   return num;
 }
 
-console.log(startTurn(2, 12))
+module.exports = {startGame, takeTurn, newGamePockets};

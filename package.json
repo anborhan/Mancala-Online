@@ -1,0 +1,19 @@
+{
+  "scripts": {
+    "start": "node server.js",
+    "test": "mocha --exit"
+  },
+  "name": "",
+  "version": "",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.0",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
+    "mocha": "^5.2.0",
+    "mongoose": "^5.3.2",
+    "morgan": "^1.9.1",
+    "uniqid": "^5.0.3"
+  }
+}
