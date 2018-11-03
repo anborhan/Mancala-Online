@@ -72,11 +72,13 @@ function takeTurn(myPlayerNumber, myPocketNumber, gameState) {
 }
 
 function isGameOver(gameBoard) {
+  console.log("Checking")
   let playerOneGameBoard = gameBoard.slice(0, 5)
   let playerTwoGameBoard = gameBoard.slice(7, 12)
 //need to add that other pockets go to score
   const test = playerOneGameBoard.every(isZero)
   if (test) {
+    console.log("Testing")
     let extraScore = playerTwoGameBoard.reduce((a,b)=>a+b)
     gameBoard[13] +=extraScore;
     return true;

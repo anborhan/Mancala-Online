@@ -6,166 +6,103 @@ const router = express.Router();
 
 const jsonParser = bodyParser.json();
 const jwt = require('jsonwebtoken');
+const faker = require('faker');
 
+//change mancalaRouter to mancalaAPIRouter (machine facing) and make a new mancalaRouter which is used for setting a nickname, the main Mancala menu, homepage, etc.
 
 const mancala = require('./mancalaModule');
 const { Game } = require('./mancalaModel');
 
+const { DATABASE_URL, PORT } = require('../config');
+
+function generateCode() {
+    const playerString = faker.fake("{{hacker.adjective}}{{company.bsAdjective}}{{company.catchPhraseNoun}}");
+    let updatedPlayerCode = playerString.replace(/\W/g, '')
+    return updatedPlayerCode;
+}
+
+function generateUrl(code, url, join) {
+    let newUrl = `${url}${join}/${code}`
+    return newUrl
+}
+
 //startgame
-router.post('/startgame', (req, res) => {
-    /*const requiredFields = ['username'];
-    requiredFields.forEach(field => {
-        if (!(field in req.body)) {
-            const message = `Missing \`${field}\` in request body`;
-            console.error(message);
-            return res.status(400).send(message);
-        }
-    });*/
+router.post('/', (req, res) => {
+
     const username = (req.body && req.body.username) || req.query.username
     const nickname = (req.body && req.body.nickname) || req.query.nickname || "Player 1"
 
     let gameState = mancala.startGame();
     //    res.status(201).json(gameState)
 
-    /*let token = jwt.sign({nickname}, 'shhhhh');*/
+    //serialize! (players object - return sanitized version players.map)
+    //know if it's hosted at /mancala base off of req.url
+    let hostUrl = req.headers.host
+    const playerOneCode = generateCode()
+    const playerOneUrl = generateUrl(playerOneCode, hostUrl, "")
+    const inviteCode = generateCode()
+    const gameInviteForPlayerTwo = generateUrl(inviteCode, hostUrl, "/join")
 
     Game.create({
         players: [{
             username,
             nickname,
             IPAddress: req.ip,
+            playerToken: playerOneCode
         }],
+        gameInviteCode: inviteCode,
         startDate: new Date(),
         gameState: gameState,
     })
         .then(game => res.status(200).json(game))
+        //{game, "Your Private Game Link": playerOneUrl, "Your Invite Code for Player Two": gameInviteForPlayerTwo}
         .catch(err => {
             console.log(err);
             res.status(500).json({ error: "something went wrong" })
         })
+    
 })
 
+/*router.get('/join/:invitecode', (req, res) => {
+    //user sets nickname
+    //
+}) */
+
 //add player
-router.put('/startgame/:id', (req, res) => {
-    //req gameId
+router.put('/join/:invitecode', (req, res) => {
+    //set nickname
     const username = (req.body && req.body.username) || req.query.username
     const nickname = (req.body && req.body.nickname) || req.query.nickname || "Player 2"
 
-    //let token = jwt.sign({nickname}, 'shhhhh');
-
+    let hostUrl = req.headers.host
+    const playerTwoCode = generateCode();
+    const playerTwoUrl = generateUrl(playerTwoCode, hostUrl, "");
+    //function generatecode, check characters, return
+    //generateCode, generateURL(req) ---- req.app
+    //express request documentation page
     Game
-       /* .findOne({ _id: req.params.id })
+        .findOne({ gameInviteCode: req.params.invitecode })
         .then(game => {
-            if (!game) return res.status(406).json({ error: "No game found!" });
-            if (game.players.length !== 1) return res.status(406).json({ error: "There are too many players in this game!" });*/
-            
-    .findByIdAndUpdate(req.params.id,
-        {
-            $push: {
-                players: [{
+            if (!game) return res.status(406).json({ error: "This isn't a joinable game" });
+           // if (req.ip === game.players[0].IPAddress) return res.status(406).json({ error: "You're already in this game!"})
+            if (game.players.length !== 1) return res.status(406).json({ error: "There are too many players in this game!" });   
+            game.players.push({
                     username,
                     nickname,
                     IPAddress: req.ip,
-                    //Token: token
-                }],
-            }
-        }, {new: true}
-    ).then(game => res.status(250).json(game))
+                    playerToken: playerTwoCode
+                }
+            );
+
+            game.gameInviteCode = undefined;
+            return game.save();
+        })
+        .then(game => res.status(200).json(game))
+        //{"Your Game URL": playerTwoUrl, game}
     .catch(err => {
         console.log(err);
         res.status(500).json({ error: "Something went wrong!" })
     })
 })
-
-
-//view game
-router.get('/:id', (req, res) => {
-    Game
-        .findOne({ _id: req.params.id })
-        .then(game => res.status(200).json(game))
-})
-
-//take turn
-router.put('/:id', jsonParser, (req, res) => {
-    //check that all fields are filled in request form
-    const requiredFields = ['pocket', 'playerID'];
-    requiredFields.forEach(field => {
-        if (!(field in req.body)) {
-            const message = `Missing \`${field}\` in request body`;
-            console.error(message);
-            return res.status(400).send(message);
-        }
-    });
-    let result;
-    let requestingPlayer = req.body.playerID
-    Game
-        //find a game based on user's request
-        .findOne({ _id: req.params.id })
-        .then(game => {
-            if (!game) return res.status(406).json({ error: "No game found!" });
-            if (game.gameOver) return res.status(/*422*/ 423).json({ error: "This game is already over!" })
-            //check if two players are playing (it is impossible for a game to have more than 2)
-            if (!game.players || game.players.length !== 2) return res.status(406).json({ error: "Not enough players!" });
-            let playerInGame = game.players.id(requestingPlayer)
-            //let reqPlayerIndex = game.players.findIndex( player => player._id == requestingPlayer);
-            let reqPlayerIndex = game.players.indexOf(playerInGame);
-            if (reqPlayerIndex < 0) return res.status(406).json({ error: "You're not in this game!" });
-            if (reqPlayerIndex + 1 !== game.gameState.currentPlayer) return res.status(406).json({ error: "It's not your turn!" })
-
-            result = (mancala.takeTurn(game.gameState.currentPlayer, req.body.pocket, game.gameState))
-
-            if (result.error) return res.status(406).json({ error: result.error });
-            let gameResult;
-            if (result.gameOver) {
-                gameResult = "The game is over!"
-                if (result.winner === reqPlayerIndex + 1) gameResult += " You won!";
-                else if (result.tie) gameResult += " It was a tie!";
-                else gameResult += " You lost!";
-            }
-
-
-            //Turn is taken (everything went correctly)
-            game.gameState = result;
-            game.save().then(() => {
-                if (game.gameOver) {
-                    game.gameState.currentPlayer = undefined;
-                    game.gameState.numberOfTurns = game.gameState.turn - 1;
-                    game.gameState.turn = undefined;
-                    game.gameState.Results = gameResult;
-                }
-                game.gameState.startingPlayer = undefined;
-                return res.status(200).json(game.gameState);
-
-                //end of success code
-            }).catch(err => {
-                console.error(err);
-                res.status(500).json({ error: "Something went wrong!" })
-            })
-        }).catch(err => {
-            console.error(err);
-            res.status(404).json({ error: 'Could not find game with this ID' });
-        });
-
-
-})
-
-
-
-
-//router.route or router.use
-
-/* mancala.takeTurn(game.gameState.currentPlayer, req.gameState.pocketChoice, game.gameState)
-         }
-     }).then(game => res.status(250).json(game))
- 
- 
-(err, game) => {
-     if (err) {
-         console.log(err)
-         return res.status(500).json({Message: "There was an error"})
-     }
-     res.json(game);
- })*/
-
 
 module.exports = router;

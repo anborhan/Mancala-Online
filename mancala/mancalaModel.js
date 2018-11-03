@@ -9,9 +9,14 @@ const gameSchema = mongoose.Schema({
         username: String,
         nickname: String,
         IPAddress: String,
-        //Token: String
+        playerToken: String
     }],
-    startTime: Date,
+    gameInviteCode: String,
+    startTime: {
+        type: Date,
+        default: Date.now
+    },
+    lastModified: Date,
     gameState: {
         gameBoard: Array, 
         startingPlayer: Number, 
@@ -20,13 +25,6 @@ const gameSchema = mongoose.Schema({
         gameOver: Boolean
     }
 });
-/*
-gameSchema.methods.toJSON = function() {
-    let obj = this.toObject();
-    delete obj.players[0].Token;
-    delete obj.players[1].Token;
-    return obj;
-   }*/
 
 const Game = mongoose.model("Game", gameSchema);
 

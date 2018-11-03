@@ -9,7 +9,7 @@ mongoose.Promise = global.Promise;
 const jsonParser = bodyParser.json();
 const app = express();
 
-
+const mancalaAPIRouter = require('./mancala/mancalaAPIRouter');
 const mancalaRouter = require('./mancala/mancalaRouter');
 const usersRouter = require('./users/usersRouter')
 const { DATABASE_URL, PORT } = require('./config');
@@ -18,8 +18,9 @@ const { DATABASE_URL, PORT } = require('./config');
 app.use(morgan('common'));
 
 app.use(express.static('public'));
+app.enable("trust proxy")
 
-app.use('/mancala', mancalaRouter);
+app.use('/mancala', mancalaAPIRouter, mancalaRouter);
 app.use('/users', usersRouter)
 
 let server;
