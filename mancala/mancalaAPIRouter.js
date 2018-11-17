@@ -5,8 +5,6 @@ const bodyParser = require('body-parser');
 const router = express.Router();
 
 const jsonParser = bodyParser.json();
-const jwt = require('jsonwebtoken');
-const faker = require('faker');
 
 //change mancalaRouter to mancalaAPIRouter (machine facing) and make a new mancalaRouter which is used for setting a nickname, the main Mancala menu, homepage, etc.
 
@@ -24,22 +22,20 @@ router.get('/:id', (req, res) => {
 router.put('/:playercode', jsonParser, (req, res) => {
     //check that all fields are filled in request form
     const requiredFields = ['pocket'];
-    let check = false;
+    let missingPocketErr = false;
     requiredFields.forEach(field => {
         if (!(field in req.body)) {
             const message = `Missing \`${field}\` in request body`;
-            check = true;
+            missingPocketErr = true;
             console.error(message);
-            return res.status(400).send(message);
         }
     });
-    console.log("Not supposed to happen!")
     let result;
     Game
         //find a game based on user's request
         .findOne({ "players.playerToken": req.params.playercode })
         .then(game => {
-            if (check) return res.status(406).json({error: "Missing Pockets in Request Body"})
+            if (missingPocketErr) return res.status(406).json({error: "Missing Pockets in Request Body"})
             if (!game) return res.status(406).json({ error: "No game found!" });
             if (game.gameOver) return res.status(/*422*/ 423).json({ error: "This game is already over!" })
             //check if two players are playing (it is impossible for a game to have more than 2)
@@ -58,7 +54,6 @@ router.put('/:playercode', jsonParser, (req, res) => {
                 else if (result.tie) gameResult += " It was a tie!";
                 else gameResult += " You lost!";
             }
-
 
             //Turn is taken (everything went correctly)
             game.gameState = result;
@@ -85,24 +80,5 @@ router.put('/:playercode', jsonParser, (req, res) => {
 
 
 })
-
-
-
-
-//router.route or router.use
-
-/* mancala.takeTurn(game.gameState.currentPlayer, req.gameState.pocketChoice, game.gameState)
-         }
-     }).then(game => res.status(250).json(game))
- 
- 
-(err, game) => {
-     if (err) {
-         console.log(err)
-         return res.status(500).json({Message: "There was an error"})
-     }
-     res.json(game);
- })*/
-
 
 module.exports = router;

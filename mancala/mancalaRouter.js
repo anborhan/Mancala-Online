@@ -4,8 +4,6 @@ const bodyParser = require('body-parser');
 
 const router = express.Router();
 
-const jsonParser = bodyParser.json();
-const jwt = require('jsonwebtoken');
 const faker = require('faker');
 
 //change mancalaRouter to mancalaAPIRouter (machine facing) and make a new mancalaRouter which is used for setting a nickname, the main Mancala menu, homepage, etc.
@@ -26,6 +24,8 @@ function generateUrl(code, url, join) {
     return newUrl
 }
 
+
+
 //startgame
 router.post('/', (req, res) => {
 
@@ -39,7 +39,6 @@ router.post('/', (req, res) => {
     //know if it's hosted at /mancala base off of req.url
     let hostUrl = req.headers.host
     const playerOneCode = generateCode()
-    const playerOneUrl = generateUrl(playerOneCode, hostUrl, "")
     const inviteCode = generateCode()
     const gameInviteForPlayerTwo = generateUrl(inviteCode, hostUrl, "/join")
 
@@ -48,14 +47,17 @@ router.post('/', (req, res) => {
             username,
             nickname,
             IPAddress: req.ip,
-            playerToken: playerOneCode
+            playerToken: playerOneCode,
         }],
         gameInviteCode: inviteCode,
+        gameInviteUrl: gameInviteForPlayerTwo,
         startDate: new Date(),
         gameState: gameState,
     })
-        .then(game => res.status(200).json(game))
-        //{game, "Your Private Game Link": playerOneUrl, "Your Invite Code for Player Two": gameInviteForPlayerTwo}
+        .then(game => {
+            let serialized = game.serialize(playerOneCode);
+            res.status(200).json(serialized)})
+        // {game: game.serialize(), "Your Private Game Link": playerOneUrl, "Your Invite Code for Player Two": gameInviteForPlayerTwo}
         .catch(err => {
             console.log(err);
             res.status(500).json({ error: "something went wrong" })
@@ -63,29 +65,40 @@ router.post('/', (req, res) => {
     
 })
 
-/*router.get('/join/:invitecode', (req, res) => {
-    //user sets nickname
-    //
-}) */
+router.put('/rename/:nickname', (req, res) => {
+    Game
+        .findOneAndUpdate({ "players.playerToken": req.body.playerToken}, {$set: {"players.$.nickname": req.query.nickname}}, {new: true})
+        .then(game => res.status(200).json(game.serialize(playerOneCode)))
+})
 
 //add player
-router.put('/join/:invitecode', (req, res) => {
+router.get('/join/:invitecode', (req, res) => {
     //set nickname
-    const username = (req.body && req.body.username) || req.query.username
-    const nickname = (req.body && req.body.nickname) || req.query.nickname || "Player 2"
+    const username = req.query.username
+    const nickname = req.query.nickname || "Player 2"
 
-    let hostUrl = req.headers.host
     const playerTwoCode = generateCode();
-    const playerTwoUrl = generateUrl(playerTwoCode, hostUrl, "");
     //function generatecode, check characters, return
     //generateCode, generateURL(req) ---- req.app
     //express request documentation page
+    let gameResponse;
+    let game;
     Game
         .findOne({ gameInviteCode: req.params.invitecode })
-        .then(game => {
-            if (!game) return res.status(406).json({ error: "This isn't a joinable game" });
+        .then(_game => {
+            game = _game;
+            if (!game) {
+                console.log("Thrown Error")
+                let err = new Error("This isn't a joinable game");
+                err.code = 404;
+                return Promise.reject(err);
+            }
            // if (req.ip === game.players[0].IPAddress) return res.status(406).json({ error: "You're already in this game!"})
-            if (game.players.length !== 1) return res.status(406).json({ error: "There are too many players in this game!" });   
+            if (game.players.length !== 1) {
+                let err = new Error("There are too many players in this game!");
+                err.code = 406;
+                return Promise.reject(err);
+            }
             game.players.push({
                     username,
                     nickname,
@@ -97,11 +110,12 @@ router.put('/join/:invitecode', (req, res) => {
             game.gameInviteCode = undefined;
             return game.save();
         })
-        .then(game => res.status(200).json(game))
-        //{"Your Game URL": playerTwoUrl, game}
+        .then(_game => res.status(200).json(game.serialize(playerTwoCode)))
+        //need to fix this
+        //{game: game.serialize(playerTwoCode), "Your Game URL": playerTwoUrl}
     .catch(err => {
         console.log(err);
-        res.status(500).json({ error: "Something went wrong!" })
+        res.status(err.code || 500).json({ error: err.message || "Something went wrong!" })
     })
 })
 
