@@ -34,6 +34,7 @@ function getDataFromMancala(nickname, callback) {
   })
 }
 
+
 function renderMancalaGame(data) {
   console.log(data)
 }
