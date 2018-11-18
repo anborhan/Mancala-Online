@@ -1,0 +1,138 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #3ec4e2;
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.mancalaBoard {
+  display: block;
+  max-width: 85vw;
+  margin-top: 2em;
+  position: relative;
+  height: 24vw;
+}
+
+.center {
+  margin-left: auto;
+  margin-right: auto;	
+}
+
+.borderCurved {
+  border-radius: 10px;
+}
+
+.openSansCondensed {
+  font-family: 'Open Sans Condensed', sans-serif;
+}
+
+.header {
+  font-size: 80px;
+  color: white;
+  margin: 0px;
+  text-align: center;
+}
+
+.startGame {
+  text-align: center;
+  display: block;
+  color: white;
+  margin-top: 1em;
+  padding: 0.5em;
+  border-radius: 4px;
+  border: white solid 4px;
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 20px;
+  cursor: pointer;
+  background-color: #AC43E6;
+}
+
+.mancala {
+  position: relative;
+  width: 10vw;
+  height: 21.8vw;
+  margin: 0.5% 0.5% 0.5% 0.5%;
+}
+
+.yourMancala {
+  float: right;
+  margin: 0.5% 0.7% 0.5% 0.7%;
+}
+
+.opponentMancala {
+  margin: 0.5% 0.7% 0.5% 0.7%;
+  float: left;
+}
+
+.pocket {
+  border-radius: 50%;
+  width: 9vw;
+  height: 9vw;
+  text-align: center;
+}
+
+.opponent {
+  margin: 0.7% 0.7% 0.5% 0.7%;
+  float: left;
+}
+
+.player {
+  top: 2.6vw;
+  float: left;
+  position: relative;
+  margin: 0.5% 0.7% 0.5% 0.7%;
+}
+
+fieldset {
+  border: 0;
+}
+
+.blue {
+  background-color: #3ec4e2;
+}
+
+.brown {
+  background-color: #DDA86E;
+}
+
+.darkBrown {
+  background-color: #987158;
+}
+
+.blackBorder {
+ border: black solid 6px;
+}
+
+.blackBoardBorder {
+  border: black solid 9px;
+}
+
+.whiteBorder {
+ border: white solid 6px;
+}
+
+.whiteBoardBorder {
+  border: white solid 9px;
+}
+
+.hidden {
+	display: none;
+}
+
+.nicknameMenu {
+  bottom: 50%;
+  left: 0;
+  right: 0;
+  width: 200px;
+  background-color: white;
+  position: absolute;
+}
+
+.pocket:hover{
+  background-color: #3ec4e2;
+}
