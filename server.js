@@ -14,7 +14,6 @@ const mancalaRouter = require('./mancala/mancalaRouter');
 const usersRouter = require('./users/usersRouter')
 const { DATABASE_URL, PORT } = require('./config');
 
-
 app.use(morgan('common'));
 
 app.use(express.static('public'));

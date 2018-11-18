@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Mancala Online</title>
+	<link href="index.css" rel="stylesheet" type="text/css" />
+	<link href="responsive.css" rel="stylesheet" type="text/css" />
+	<link href="visuals.css" rel="stylesheet" type="text/css" />
+	<!-- Put Fonts Here -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet"> 
+</head>
+<body>
+	<h1 class="header openSansCondensed">MANCALA ONLINE</h1>
+	<main>
+		<div class="mancalaBoard whiteBoardBorder borderCurved center">
+			<span class="mancala whiteBorder opponentMancala borderCurved" id="Pocket14"></span>
+			<span class="openSansCondensed scoreBoard scoreOpponent hidden">TEST</span>
+
+			<span class="pocket whiteBorder opponent" id="Pocket13"></span>
+			<span class="pocket whiteBorder opponent" id="Pocket12"></span>
+			<span class="pocket whiteBorder opponent" id="Pocket11"></span>
+			<span class="pocket whiteBorder opponent" id="Pocket10"></span>
+			<span class="pocket whiteBorder opponent" id="Pocket9"></span>
+			<span class="pocket whiteBorder opponent" id="Pocket8"></span>
+
+
+			<span class="mancala whiteBorder yourMancala borderCurved" id="Pocket7"></span>
+			<span class="openSansCondensed scoreBoard scorePlayer hidden">TEST</span>
+
+            <span class="pocket whiteBorder player" id="Pocket1">
+			</span>
+			<span class="pocket whiteBorder player" id="Pocket2"></span>
+			<span class="pocket whiteBorder player" id="Pocket3"></span>
+			<span class="pocket whiteBorder player" id="Pocket4"></span>
+			<span class="pocket whiteBorder player" id="Pocket5"></span>
+			<span class="pocket whiteBorder player" id="Pocket6"></span>
+
+		</div>
+		<form action="#" class="center openSansCondensed blackBorder borderCurved hidden nicknameMenu">
+			<fieldset class="">
+              <legend class="hidden">Your Nickname: </legend>
+              Choose a Nickname:<br>
+ 			  <input class="nicknameChoice openSansCondensed" type="text" name="nickname" placeholder="Player One"><br>
+			  <input class="nicknameSubmit openSansCondensed" type="submit" value="Submit">
+			</fieldset>
+		</form>
+		<div class="endGame center openSansCondensed blackBorder borderCurved hidden">FINAL SCORE</div>
+		<button class="center startGame openSansCondensed" type="submit">PLAY GAME</button>
+		<div class="inviteCode center openSansCondensed burderCurved hidden"></div>
+	</main>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="index.js"></script>
+
+</body>
+</html>

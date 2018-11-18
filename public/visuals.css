@@ -1,0 +1,59 @@
+.blackBorder {
+    border: black solid 4px;
+}
+
+.blackBoardBorder {
+    border: black solid 6px;
+}
+
+.blue {
+    background-color: #3ec4e2;
+}
+
+.brown {
+    background-color: #DDA86E;
+}
+
+.darkBrown {
+    background-image: radial-gradient(#DDA86E, #987158);
+}
+
+.whiteBorder {
+    border: white solid 4px;
+}
+
+.whiteBoardBorder {
+    border: white solid 6px;
+}
+
+fieldset {
+    border: 0;
+    }    
+
+.hidden {
+    display: none;
+}
+
+.pocket:hover{
+    background-color: #3ec4e2;
+}
+
+.pocket:focus{
+    background-color: #3ec4e2;
+}
+
+.startGame:hover{
+    background-color: red;
+}
+
+.startGame:focus{
+    background-color: red;
+}
+
+.piece {
+    border-radius: 50%;
+    background-color: #AC43E6;
+    width: 2.5vw;
+    height: 2.5vw;
+    border: black solid 2px;
+}
