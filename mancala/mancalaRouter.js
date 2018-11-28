@@ -34,13 +34,13 @@ router.post('/', (req, res) => {
 
     let gameState = mancala.startGame();
     //    res.status(201).json(gameState)
-
+    console.log(req.body)
     //serialize! (players object - return sanitized version players.map)
     //know if it's hosted at /mancala base off of req.url
     let hostUrl = req.headers.host
     const playerOneCode = generateCode()
     const inviteCode = generateCode()
-    const gameInviteForPlayerTwo = generateUrl(inviteCode, hostUrl, "/join")
+    const gameInviteForPlayerTwo = generateUrl(inviteCode, hostUrl, "/mancala/join")
 
     Game.create({
         players: [{

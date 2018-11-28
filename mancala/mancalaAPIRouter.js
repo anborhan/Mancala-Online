@@ -12,17 +12,25 @@ const mancala = require('./mancalaModule');
 const { Game } = require('./mancalaModel');
 
 //view game
+router.get('/:playercode', (req, res) => {
+    Game
+        .findOne({ "players.playerToken": req.params.playercode })
+        .then(game => res.status(200).json(game.serialize(req.params.playercode)))
+})
+
 router.get('/:id', (req, res) => {
     Game
         .findOne({ _id: req.params.id })
-        .then(game => res.status(200).json(game))
+        .then(game => res.status(200).json(game.serialize()))
 })
 
 //take turn
 router.put('/:playercode', jsonParser, (req, res) => {
     //check that all fields are filled in request form
-    const requiredFields = ['pocket'];
+    console.log(req.body)
+    const requiredFields = ["pocket"];
     let missingPocketErr = false;
+    console.log("Yo!")
     requiredFields.forEach(field => {
         if (!(field in req.body)) {
             const message = `Missing \`${field}\` in request body`;
@@ -65,8 +73,9 @@ router.put('/:playercode', jsonParser, (req, res) => {
                     game.gameState.turn = undefined;
                     game.gameState.Results = gameResult;
                 }
+                console.log(game)
                 game.gameState.startingPlayer = undefined;
-                return res.status(200).json(game.gameState);
+                return res.status(200).json(game.serialize(req.params.playercode));
 
                 //end of success code
             }).catch(err => {

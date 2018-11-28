@@ -10,7 +10,7 @@ const playerSchema = mongoose.Schema({
 });
 
 playerSchema.methods.serialize = function (playerCode) {
-    if (this.playerToken = playerCode) {
+    if (this.playerToken === playerCode) {
         return {
             username: this.username,
             nickname: this.nickname,

@@ -9,6 +9,9 @@ mongoose.Promise = global.Promise;
 const jsonParser = bodyParser.json();
 const app = express();
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 const mancalaAPIRouter = require('./mancala/mancalaAPIRouter');
 const mancalaRouter = require('./mancala/mancalaRouter');
 const usersRouter = require('./users/usersRouter')

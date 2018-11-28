@@ -35,10 +35,30 @@
         margin: 0px;
         text-align: center;
     }
+
+    .navButtons {
+        text-align: center;
+    }
     
     .startGame {
         text-align: center;
-        display: block;
+        display: inline-block;
+        color: white;
+        margin-top: 1em;
+        padding: 0.5em;
+        border-radius: 4px;
+        border: white solid 4px;
+        font-size: 30px;
+        font-weight: bold;
+        margin-top: 20px;
+        cursor: pointer;
+        background-color: #AC43E6;
+        
+    }
+
+    .joinGame, .backButton {
+        text-align: center;
+        display: inline-block;
         color: white;
         margin-top: 1em;
         padding: 0.5em;
@@ -82,14 +102,33 @@
         float: left;
     }
     
-    .pocket {
+    .opponent, .player {
         border-radius: 50%;
         width: 9vw;
         height: 9vw;
         text-align: center;
         font-size: 40px;
         font-weight: bold;
+        position: relative;
     }
+
+    .pocketScoreOpponent {
+        position: absolute;
+        bottom: 110%;
+        left: 40%;
+    }
+      .pocketScoreOpponent {
+        position: absolute;
+        bottom: 110%;
+        left: 40%;
+    }
+    
+    .pocketScorePlayer {
+        position: absolute;
+        bottom: -56%;
+        left: 40%;
+    }
+    
     
     .opponent {
         margin: 0.7% 0.7% 0.5% 0.7%;
@@ -101,6 +140,40 @@
         float: left;
         position: relative;
         margin: 0.5% 0.7% 0.5% 0.7%;
+    }
+
+    .joinGameMenu {
+        bottom: 40%;
+        left: 0;
+        right: 0;
+        width: 400px;
+        background-color: white;
+        position: absolute;
+        text-align: center;
+        font-size: 25px;
+    }
+    
+    .gameCode, .nickname, .joinGameSubmit {
+        font-size: 25px;
+    }
+
+    .turnAlert {
+        text-align: center;
+        margin-top: 3em;
+        font-size: 30px;
+    }
+
+    .joinGameSubmit, .nicknameSubmit {
+        text-align: center;
+        display: inline-block;
+        color: white;
+        padding: 0.5em;
+        border-radius: 4px;
+        border: white solid 4px;
+        font-size: 30px;
+        font-weight: bold;
+        cursor: pointer;
+        background-color: #AC43E6;
     }
     
     .nicknameMenu {
@@ -123,6 +196,7 @@
         font-size: 30px;
         text-align: center;
         top: 60px;
+
     }
     
     .scoreBoard {

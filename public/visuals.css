@@ -35,18 +35,18 @@ fieldset {
 }
 
 .pocket:hover{
-    background-color: #3ec4e2;
+    background-image: radial-gradient(#DDA86E, #3ec4e2);
 }
 
 .pocket:focus{
-    background-color: #3ec4e2;
+    background-image: radial-gradient(#DDA86E, #3ec4e2);
 }
 
-.startGame:hover{
+.startGame:hover, .joinGame:hover, .backButton:hover{
     background-color: red;
 }
 
-.startGame:focus{
+.startGame:focus, .joinGame:focus, .backButton:focus{
     background-color: red;
 }
 
@@ -56,4 +56,8 @@ fieldset {
     width: 2.5vw;
     height: 2.5vw;
     border: black solid 2px;
+}
+
+.pocket .piece {
+    position: absolute;
 }
