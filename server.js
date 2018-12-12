@@ -28,9 +28,9 @@ app.use('/users', usersRouter)
 
 let server;
 
-function runServer(DATABASE_URL, port = PORT) {
+function runServer(database_url, port = PORT) {
   return new Promise((resolve, reject) => {
-    mongoose.connect(DATABASE_URL, err => {
+    mongoose.connect(database_url, err => {
       if (err) {
         return reject(err);
       }
