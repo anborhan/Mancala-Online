@@ -5,7 +5,7 @@ const chaiHttp = require('chai-http');
 
 const { app, runServer, closeServer } = require('../server');
 const mancala = require('../mancala/mancalaAPIRouter');
-const { DATABASE_URL } = require('../config');
+const { TEST_DATABASE_URL } = require('../config');
 const { Game } = require('../mancala/mancalaModel');
 
 
@@ -16,7 +16,7 @@ describe("Mancala Setup", function () {
     let gameObject;
 
     before(function () {
-        return runServer(DATABASE_URL)
+        return runServer(TEST_DATABASE_URL)
 
     })
 
@@ -105,7 +105,7 @@ describe("Mancala Game", function () {
     let playerTwoToken
 
     before(function () {
-        return runServer(DATABASE_URL);
+        return runServer(TEST_DATABASE_URL);
     })
 
     after(function () {
@@ -225,7 +225,7 @@ describe("Mancala Game after Ending", function () {
     let playerOneFinishedGameToken;
 
     before(function () {
-        return runServer(DATABASE_URL)
+        return runServer(TEST_DATABASE_URL)
     })
 
     after(function () {
