@@ -12,61 +12,18 @@
 
 <body>
 	<h1 class="header openSansCondensed">MANCALA ONLINE</h1>
-	<main>
-		<div class="mancalaBoard whiteBoardBorder borderCurved center">
-			<span class="mancala whiteBorder opponentMancala borderCurved" data-pocket-order="14" id="Pocket14"></span>
-			<span class="openSansCondensed scoreBoard scoreOpponent hidden">Player 2 (Not joined)</span>
-
-			<span class=" whiteBorder opponent" data-pocket-order="13">
-				<div class="pocketScoreOpponent" id="Pocket13"></div>
-			</span>
-			<span class=" whiteBorder opponent" data-pocket-order="12">
-				<div class="pocketScoreOpponent" id="Pocket12"></div>
-			</span>
-			<span class=" whiteBorder opponent" data-pocket-order="11">
-				<div class="pocketScoreOpponent" id="Pocket11"></div>
-			</span>
-			<span class=" whiteBorder opponent" data-pocket-order="10">
-				<div class="pocketScoreOpponent" id="Pocket10"></div>
-			</span>
-			<span class=" whiteBorder opponent" data-pocket-order="9">
-				<div class="pocketScoreOpponent" id="Pocket9"></div>
-			</span>
-			<span class=" whiteBorder opponent" data-pocket-order="8">
-				<div class="pocketScoreOpponent" id="Pocket8"></div>
-			</span>
-
-			<span class="mancala whiteBorder yourMancala borderCurved" data-pocket-order="7" id="Pocket7"></span>
-			<span class="openSansCondensed scoreBoard scorePlayer hidden">Player 1</span>
-
-			<span class=" whiteBorder player" data-pocket-order="1">
-				<div class="pocketScorePlayer" id="Pocket1"></div>
-			</span>
-			<span class=" whiteBorder player" data-pocket-order="2">
-				<div class="pocketScorePlayer" id="Pocket2"></div>
-			</span>
-			<span class=" whiteBorder player" data-pocket-order="3">
-				<div class="pocketScorePlayer" id="Pocket3"></div>
-			</span>
-			<span class=" whiteBorder player" data-pocket-order="4">
-				<div class="pocketScorePlayer" id="Pocket4"></div>
-			</span>
-			<span class=" whiteBorder player" data-pocket-order="5">
-				<div class="pocketScorePlayer" id="Pocket5"></div>
-			</span>
-			<span class=" whiteBorder player" data-pocket-order="6">
-				<div class="pocketScorePlayer" id="Pocket6"></div>
-			</span>
-
-		</div>
-		<div class="turnAlert openSansCondensed hidden"></div>
+	<main role="main" class="main">
+		<div class="screenReaderOnly" aria-live="assertive"></div>
 		<form action="#" class="center openSansCondensed blackBorder borderCurved hidden nicknameMenu">
-			<fieldset class="">
-				<legend class="hidden">Your Nickname: </legend>
+			<fieldset class="center">
+				<legend class="hidden" aria-live="polite">Please enter a nickname </legend>
 				Choose a Nickname:<br>
-				<input class="nicknameChoice openSansCondensed" type="text" name="nickname" placeholder="Player One"><br>
+				<input class="nicknameChoice openSansCondensed" type="text" name="nickname" placeholder="Player One"
+				 maxlength="30"><br>
 				<input class="nicknameSubmit openSansCondensed" type="submit" value="Submit">
 			</fieldset>
+			<button class="center backButton openSansCondensed hidden" type="button">BACK</button>
+
 		</form>
 		<form action="#" class="center openSansCondensed blackBorder borderCurved hidden joinGameMenu">
 			<fieldset class="">
@@ -75,18 +32,147 @@
 				<input class="gameCode openSansCondensed" type="text" name="gamecode" placeholder="Game Code" required><br>
 				<legend class="hidden">Your Nickname: </legend>
 				Choose a Nickname:<br>
-				<input class="nickname openSansCondensed" type="text" name="nickname" placeholder="Player One"><br>
+				<input class="nickname openSansCondensed" type="text" name="nickname" placeholder="Player Two" maxlength="15"><br>
 
 			</fieldset>
 			<button class="joinGameSubmit openSansCondensed" type="submit" value="submit">Join Game</button>
+			<button class="center backButton openSansCondensed hidden" type="button">BACK</button>
 		</form>
-		<div class="endGame center openSansCondensed blackBorder borderCurved hidden">FINAL SCORE</div>
-		<div class="navButtons">
+		<section role="region" class="mancalaBoardVertical">
+			<div class="mancalaBoard whiteBoardBorder borderCurved center mancalaPlayerVertical">
+				<div class="navButtons buttonsVertical center">
+					<button class="center startGame openSansCondensed" type="submit">START GAME</button>
+					<button class="center joinGame openSansCondensed" type="submit">JOIN GAME</button>
+					<button class="center restartButton openSansCondensed hidden" type="submit">RESTART</button>
+				</div>
+				<span class="openSansCondensed scoreBoard scorePlayer hidden scorePlayerVertical " aria-live="polite">Player One</span>
+				<div class="turnAlert openSansCondensed hidden turnVertical"></div>
+				<span class="errorMessage center openSansCondensed" aria-live="assertive"></span>
+				<span class="mancala whiteBorder yourMancala borderCurved" data-pocket-order="7" id="Pocket7"></span>
+				<div class="pocketPair">
+					<span class=" whiteBorder opponent" data-pocket-order="8">
+						<span class = "screenReaderOnly">Pocket 8 contains </span><span class="pocketScoreOpponent" id="Pocket8"></span><span class="screenReaderOnly"> pieces</span>
+					</span>
+					<span class=" whiteBorder player" data-pocket-order="6">
+						<div class="pocketScorePlayer" id="Pocket6"></div>
+					</span>
+				</div>
+				<div class="pocketPair">
+					<span class=" whiteBorder opponent" data-pocket-order="9">
+						<div class="pocketScoreOpponent" id="Pocket9"></div>
+					</span>
+					<span class=" whiteBorder player" data-pocket-order="5">
+						<div class="pocketScorePlayer" id="Pocket5"></div>
+					</span>
+				</div>
+				<div class="pocketPair">
+					<span class=" whiteBorder opponent" data-pocket-order="10">
+						<div class="pocketScoreOpponent" id="Pocket10"></div>
+					</span>
+					<span class=" whiteBorder player" data-pocket-order="4">
+						<div class="pocketScorePlayer" id="Pocket4"></div>
+					</span>
+				</div>
+				<div class="pocketPair">
+					<span class=" whiteBorder opponent" data-pocket-order="11">
+						<div class="pocketScoreOpponent" id="Pocket11"></div>
+					</span>
+					<span class=" whiteBorder player" data-pocket-order="3">
+						<div class="pocketScorePlayer" id="Pocket3"></div>
+					</span>
+				</div>
+				<div class="pocketPair">
+					<span class=" whiteBorder opponent" data-pocket-order="12">
+						<div class="pocketScoreOpponent" id="Pocket12"></div>
+					</span>
+					<span class=" whiteBorder player" data-pocket-order="2">
+						<div class="pocketScorePlayer" id="Pocket2"></div>
+					</span>
+				</div>
+				<div class="pocketPair">
+					<span class=" whiteBorder opponent" data-pocket-order="13">
+						<div class="pocketScoreOpponent" id="Pocket13"></div>
+					</span>
+
+					<span class=" whiteBorder player" data-pocket-order="1">
+						<div class="pocketScorePlayer" id="Pocket1"></div>
+					</span>
+				</div>
+
+				<span class="mancala whiteBorder opponentMancala borderCurved opponentMancalaVertical" data-pocket-order="14" id="Pocket14"></span>
+				<span class="openSansCondensed scoreBoard scoreOpponent hidden scoreOpponentVertical" aria-live="polite">Player Two
+					(Not joined)</span>
+
+			</div>
+		</section>
+		<section role="region" class="mancalaBoardHorizontal">
+			<div class="mancalaBoard whiteBoardBorder borderCurved center">
+				<span class="openSansCondensed scoreBoard scorePlayer hidden scorePlayerVertical " aria-live="polite">Player One</span>
+				<span class="errorMessage center openSansCondensed" aria-live="assertive"></span>
+				<span class="mancala whiteBorder opponentMancala borderCurved" data-pocket-order="14" id="Pocket14"></span>
+				<span class="openSansCondensed scoreBoard scoreOpponent scoreOpponentHorizontal hidden" aria-live="polite">Player Two
+					(Not joined)</span>
+
+				<span class=" whiteBorder opponent" data-pocket-order="13">
+					<div class="pocketScoreOpponent" id="Pocket13"></div>
+				</span>
+				<span class=" whiteBorder opponent" data-pocket-order="12">
+					<div class="pocketScoreOpponent" id="Pocket12"></div>
+				</span>
+				<span class=" whiteBorder opponent" data-pocket-order="11">
+					<div class="pocketScoreOpponent" id="Pocket11"></div>
+				</span>
+				<span class=" whiteBorder opponent" data-pocket-order="10">
+					<div class="pocketScoreOpponent" id="Pocket10"></div>
+				</span>
+				<span class=" whiteBorder opponent" data-pocket-order="9">
+					<div class="pocketScoreOpponent" id="Pocket9"></div>
+				</span>
+				<span class=" whiteBorder opponent" data-pocket-order="8">
+					<div class="pocketScoreOpponent" id="Pocket8"></div>
+				</span>
+
+				<span class="mancala whiteBorder yourMancala borderCurved" data-pocket-order="7" id="Pocket7"></span>
+				<span class="openSansCondensed scoreBoard scorePlayer hidden scorePlayerHorizontal" aria-live="polite">Player 1</span>
+
+				<span class=" whiteBorder player" data-pocket-order="1">
+					<div class="pocketScorePlayer" id="Pocket1"></div>
+				</span>
+				<span class=" whiteBorder player" data-pocket-order="2">
+					<div class="pocketScorePlayer" id="Pocket2"></div>
+				</span>
+				<span class=" whiteBorder player" data-pocket-order="3">
+					<div class="pocketScorePlayer" id="Pocket3"></div>
+				</span>
+				<span class=" whiteBorder player" data-pocket-order="4">
+					<div class="pocketScorePlayer" id="Pocket4"></div>
+				</span>
+				<span class=" whiteBorder player" data-pocket-order="5">
+					<div class="pocketScorePlayer" id="Pocket5"></div>
+				</span>
+				<span class=" whiteBorder player" data-pocket-order="6">
+					<div class="pocketScorePlayer" id="Pocket6"></div>
+				</span>
+				<span class="openSansCondensed scoreBoard scoreOpponent hidden scoreOpponentVertical" aria-live="polite">Player 2
+					(Not joined)</span>
+
+			</div>
+		</section>
+		<section role="region">
+			<div class="turnAlert openSansCondensed hidden turnHorizontal" aria-live="polite"></div>
+		</section>
+		<div class="endGame center openSansCondensed blackBorder borderCurved hidden" aria-live="assertive">FINAL SCORE</div>
+		<div class="quitGame center openSansCondensed blackBorder borderCurved hidden" aria-live="assertive">Are you sure you want to quit?
+			<button class="quitYes openSansCondensed" type="button">Yes</button>
+			<button class="quitNo openSansCondensed" type="button">No</button>
+		</div>
+		<div class="navButtons buttonsHorizontal">
 			<button class="center startGame openSansCondensed" type="submit">START GAME</button>
 			<button class="center joinGame openSansCondensed" type="submit">JOIN GAME</button>
-			<button class="center backButton openSansCondensed hidden" type="submit">BACK</button>
+			<button class="center restartButton openSansCondensed hidden" type="submit">RESTART</button>
 		</div>
-		<div class="inviteCode center openSansCondensed burderCurved hidden"></div>
+		<div class="inviteContainer"><div class="inviteCode moveDown center openSansCondensed burderCurved hidden"></div></div>
+		<button class="center quitButton openSansCondensed hidden" type="submit">QUIT GAME</button>
 	</main>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 	<script src="index.js"></script>

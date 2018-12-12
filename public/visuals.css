@@ -1,3 +1,5 @@
+/* COLORS */
+
 .blackBorder {
     border: black solid 4px;
 }
@@ -26,29 +28,35 @@
     border: white solid 6px;
 }
 
-fieldset {
-    border: 0;
-    }    
+/* INTERACTIBLES */
 
-.hidden {
-    display: none;
-}
-
-.pocket:hover{
+.pocket:hover {
     background-image: radial-gradient(#DDA86E, #3ec4e2);
 }
 
-.pocket:focus{
+.pocket:focus {
     background-image: radial-gradient(#DDA86E, #3ec4e2);
+    outline: none;
 }
 
-.startGame:hover, .joinGame:hover, .backButton:hover{
+.startGame:hover, .joinGame:hover, .backButton:hover, .restartButton:hover, .joinGameSubmit:hover, .nicknameSubmit:hover, .quitButton:hover, .quitYes:hover, .quitNo:hover {
     background-color: red;
 }
 
-.startGame:focus, .joinGame:focus, .backButton:focus{
+.startGame:focus, .joinGame:focus, .backButton:focus, .restartButton:focus, .joinGameSubmit:focus, .nicknameSubmit:focus, .quitButton:focus, .quitYes:focus, .quitNo:focus {
     background-color: red;
+    outline: none;
 }
+
+a, button, button::-moz-focus-inner {
+  border: 0;
+}
+
+ {
+    outline: none;
+  }
+
+/* PIECES AND POCKETS */
 
 .piece {
     border-radius: 50%;
@@ -60,4 +68,32 @@ fieldset {
 
 .pocket .piece {
     position: absolute;
+    width: 30%;
+    height: 30%;
+}
+
+/* VISIBILITY */
+
+.screenReaderOnly {
+    visibility: hidden;
+    position: absolute;
+}
+
+.hideVisibility {
+    visibility: hidden;
+}
+
+.hidden {
+    display: none;
+}
+
+/* PLACEMENT */
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.moveDown {
+    top: 86px;
 }

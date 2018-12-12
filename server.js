@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const mancalaAPIRouter = require('./mancala/mancalaAPIRouter');
-const mancalaRouter = require('./mancala/mancalaRouter');
+const gameRouter = require('./mancala/gameRouter');
 const usersRouter = require('./users/usersRouter')
 const { DATABASE_URL, PORT } = require('./config');
 
@@ -22,7 +22,8 @@ app.use(morgan('common'));
 app.use(express.static('public'));
 app.enable("trust proxy")
 
-app.use('/mancala', mancalaAPIRouter, mancalaRouter);
+app.use('/mancala', mancalaAPIRouter);
+app.use('/game', gameRouter)
 app.use('/users', usersRouter)
 
 let server;

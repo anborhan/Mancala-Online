@@ -7,6 +7,7 @@ const playerSchema = mongoose.Schema({
     nickname: String,
     IPAddress: String,
     playerToken: String,
+    gameRejoinUrl: String,
 });
 
 playerSchema.methods.serialize = function (playerCode) {
@@ -14,7 +15,8 @@ playerSchema.methods.serialize = function (playerCode) {
         return {
             username: this.username,
             nickname: this.nickname,
-            playerToken: this.playerToken
+            playerToken: this.playerToken,
+            gameRejoinUrl: this.gameRejoinUrl,
         }
     } else return {
         username: this.username,
@@ -36,7 +38,12 @@ const gameSchema = mongoose.Schema({
         startingPlayer: Number, 
         currentPlayer: Number,
         turn: Number,
-        gameOver: Boolean
+        gameOver: Boolean,
+        lastPocket: Number,
+        scores: Array,
+        results: String,
+        winner: Number,
+        tie: Boolean,
     }
 });
 
@@ -48,7 +55,7 @@ gameSchema.methods.serialize = function (playerCode) {
         startTime: this.startTime,
         lastModified: this.lastModified,
         gameState: this.gameState,
-        _id: this._id
+        _id: this._id,
     }
 }
 

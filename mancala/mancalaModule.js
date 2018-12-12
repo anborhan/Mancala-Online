@@ -47,19 +47,20 @@ function takeTurn(myPlayerNumber, myPocketNumber, gameState) {
   // success
   if (!output.error) {
     //distribute will modify pocketInfo and output.gameBoard
-    distribute(pocketInfo, output.gameBoard)
+    distribute(pocketInfo, output.gameBoard, output.currentPlayer)
     if (checkForRepeatTurn(pocketInfo, output.gameBoard)) {
       //repeat turn (do not change current player)
     } else {
       output.currentPlayer = getOtherPlayerNumber(output.currentPlayer);
-      if (checkFinalPocket(pocketInfo, output.gameBoard)) {
+      if (checkFinalPocket(pocketInfo, output.gameBoard, output.currentPlayer)) {
       output.gameBoard = scoreFinalPocket(pocketInfo, output.gameBoard);
       }
     }
     output.scores = [output.gameBoard[POCKETS_PER_PLAYER], output.gameBoard[POCKETS_PER_PLAYER*2 + MANCALAS_PER_PLAYER]];
-
     if (isGameOver(output.gameBoard)/*There are no more playable pockets*/) {
       output.gameOver = true;
+      output.turn += 1;
+      output.scores = [output.gameBoard[POCKETS_PER_PLAYER], output.gameBoard[POCKETS_PER_PLAYER*2 + MANCALAS_PER_PLAYER]];
       if (output.scores[0] === output.scores[1]) {
         output.tie = true;
       } else output.winner = output.scores[0] > output.scores[1] ? 1 : 2;
@@ -81,12 +82,18 @@ function isGameOver(gameBoard) {
     console.log("Testing")
     let extraScore = playerTwoGameBoard.reduce((a,b)=>a+b)
     gameBoard[13] +=extraScore;
+    for (let i = 7; i < 13; i++) {
+      gameBoard[i] = 0;
+    }
     return true;
   } else {
     const test2 = playerTwoGameBoard.every(isZero)
     if (test2) {
       let extraScore = playerOneGameBoard.reduce((a,b)=>a+b)
-      gameBoard[7] +=extraScore;
+      gameBoard[6] +=extraScore;
+      for (let i = 0; i < 6; i++) {
+        gameBoard[i] = 0;
+      }
       return true;
     } else return false;
   } 
@@ -121,14 +128,16 @@ function setPocketIndex (myPocketNumber) {
   return currentPocketIndex = myPocketNumber - 1;
 };
 
-function distribute (pocketInfo, gameBoard) {
+function distribute (pocketInfo, gameBoard, player) {
   console.log(gameBoard)
+  console.log({"player": player})
   const {opponentScorePocket} = pocketInfo;
 
   let hand = collect(pocketInfo.currentPocketIndex, gameBoard);
 
   while (hand > 0) {
     pocketInfo.currentPocketIndex = advanceNextPocket(pocketInfo, gameBoard);
+
     gameBoard[pocketInfo.currentPocketIndex] = gameBoard[pocketInfo.currentPocketIndex] + 1;
     hand--;
   }
@@ -157,8 +166,9 @@ function checkForRepeatTurn(pocketInfo) {
   return false;
 }
 
-function checkFinalPocket(pocketInfo, gameBoard) {
+function checkFinalPocket(pocketInfo, gameBoard, player) {
   //possible issue with when the stone lands in space 0
+  console.log({"pocketInfo": pocketInfo})
   const {myPocketMinimum, myMancala, currentPocketIndex} = pocketInfo;
   //console.log(myPocketMinimum, myMancala, currentPocketIndex, gameBoard[currentPocketIndex])
     if (currentPocketIndex < myMancala && currentPocketIndex >= myPocketMinimum) {

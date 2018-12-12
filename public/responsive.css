@@ -1,108 +1,447 @@
 /* Mobile defaults */
+
 .col-3, .col-4, .col-6, .col-12 {
     width: 100%;
     height: 100%;
-  }
+}
 
 /* Clearfix */
-.row::before,
-.row::after {
-  display: table;
-  content: '';
+
+.row::before, .row::after {
+    display: table;
+    content: '';
 }
 
 .row::after {
-  clear: both;
+    clear: both;
 }
 
-@media only screen and (min-width: 640px) {
+.header {
+    font-size: 40px;
+}
+
+.displayNoneVertical {
+    display: none;
+}
+
+/* MANCALA BOARD */
+.mancala .piece {
+    margin: -3px;
+}
+
+.pocket {
+    z-index: 3;
+}
+
+.mancala {
+    position: relative;
+    height: 13vw;
+    width: 81vw;
+    font-size: 0;
+    font-weight: bold;
+    display: inline-block;
+    padding: 4px
+}
+
+.yourMancala {
+    margin: 2% 0.7% -1% 0.7%;
+}
+
+.opponentMancala {
+    margin: 2% 0.6% 2% 0.6%;
+}
+
+.piece {
+    display: none;
+}
+
+.mancalaBoard {
+    top: 0;
+    display: block;
+    margin-top: 2em;
+    position: relative;
+    text-align: center;
+}
+
+.mancalaPlayerVertical, .mancalaOpponentVertical {
+    width: 90vw;
+}
+
+.opponent, .player {
+    border-radius: 50%;
+    width: 14vw;
+    height: 14vw;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    position: relative;
+    display: inline-block;
+}
+
+.opponent {
+    margin-right: 60%;
+    margin-top: 10px;
+}
+
+.mancalaBoardVertical {
+    display: block;
+}
+
+.mancalaBoardHorizontal {
+    display: none;
+}
+
+.pocketPair {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+/* SCORES */
+
+.scoreBoard {
+    position: absolute;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.scorePlayerVertical, .scoreOpponentVertical {
+    display: block;
+}
+
+.scoreOpponentHorizontal, .scorePlayerHorizontal {
+    display: none;
+}
+
+.scoreOpponentVertical {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    bottom: 14.5vw;
+    max-width: 60%;
+    font-size: 20px;
+}
+
+.scorePlayerVertical {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 16vw;
+    max-width: 60%;
+    font-size: 20px;
+}
+
+.pocketScoreOpponent, .pocketScorePlayer {
+    font-size: 30px;
+}
+
+/* NOTIFICATIONS AND INFO */
+
+.errorMessage {
+    top: 20%;
+    left: 0;
+    right: 0;
+    width: 40%;
+    background-color: white;
+    position: absolute;
+    text-align: center;
+    font-size: 25px;
+    z-index: 4;
+    font-weight: bold;
+    border: black solid 3px;
+    display: none;
+}
+
+.inviteContainer {
+    width: 100%;
+    position: absolute;
+    z-index: 2;
+    top: 75vw;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+}
+
+.gameCode {
+    margin-bottom: 4px;
+}
+
+.inviteCode {
+    font-size: 20px;
+    text-align: center;
+    background-color: white;
+    border: black solid 4px;
+    width: 50%;
+    position: relative;
+}
+
+.endGame, .quitGame {
+    text-align: center;
+    left: 0;
+    right: 0;
+    width: 80%;
+    background-color: white;
+    position: absolute;
+    font-size: 25px;
+    z-index: 4;
+    padding: 3px;
+    top: 60vw;
+    max-width: 300px;
+}
+
+.turnVertical {
+    display: block;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    top: 24vw;
+    max-width: 60%;
+}
+
+.turnHorizontal {
+    display: none;
+}
+
+.turnAlert {
+    font-size: 22px;
+    text-align: center;
+}
+
+.inviteCode input {
+    font-size: 20px;
+    padding: 5px;
+    margin: 3px;
+    max-width: 95%;
+}
+
+/* BUTTONS */
+.quitButton {
+    position: relative;
+}
+
+.buttonsVertical {
+    position: absolute;
+    bottom: 40%;
+    width: 100%;
+    z-index: 2;
+}
+
+.restartButton {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -20px;
+}
+
+.backButton {
+    position: relative;
+    top: 18px;
+}
+
+.joinGame, .backButton, .restartButton, .quitButton {
+    text-align: center;
+    display: block;
+    color: white;
+    margin-top: 1em;
+    padding: 0.5em;
+    border-radius: 4px;
+    border: white solid 4px;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 20px;
+    cursor: pointer;
+    background-color: #AC43E6;
+}
+
+.buttonsVertical {
+    display: block;
+}
+
+.buttonsHorizontal {
+    display: none;
+}
+
+.startGame, .joinGame, .quitYes, .quitNo {
+    left: 50%
+}
+
+.joinGameSubmit, .nicknameSubmit {
+    text-align: center;
+    display: inline-block;
+    color: white;
+    padding: 0.2em;
+    border-radius: 4px;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #AC43E6;
+    border: black solid 4px;
+    position: relative;
+}
+
+.startGame, .quitYes, .quitNo {
+    text-align: center;
+    color: white;
+    margin-top: 1em;
+    padding: 0.5em;
+    border-radius: 4px;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 20px;
+    cursor: pointer;
+    background-color: #AC43E6;
+}
+
+.startGame {
+    border: white solid 4px;
+    display: block;
+}
+
+.quitYes {
+    border: black solid 4px;
+}
+
+.quitNo {
+    border: black solid 4px;
+}
+.joinGameSubmit {
+    top: 5px;
+}
+
+.nicknameSubmit {
+    top: 10px;
+}
+
+/* MENUS AND INPUTS */
+input {
+    max-width: 80%;
+}
+
+.joinGameMenu {
+    bottom: 40%;
+    left: 0;
+    right: 0;
+    width: 85%;
+    background-color: white;
+    position: absolute;
+    text-align: center;
+    font-size: 25px;
+    z-index: 4;
+    height: 270px;
+    max-width: 300px;
+}
+
+.nicknameMenu {
+    left: 0;
+    right: 0;
+    width: 85%;
+    background-color: white;
+    position: absolute;
+    text-align: center;
+    z-index: 4;
+    height: 190px;
+    max-width: 300px;
+}
+
+.joinGameMenu, .nicknameMenu {
+    top: 20%;
 }
 
 /* Non-mobile, grid */
-@media only screen and (min-width: 1000px) {
-
-    .mancalaBoard {
-        display: block;
-        max-width: 85vw;
-        margin-top: 2em;
-        position: relative;
-        height: 24vw;
-    }
+@media only screen and (min-width: 640px) {
 
     .header {
         font-size: 80px;
         color: white;
-        margin: 0px;
+        margin: 0;
         text-align: center;
     }
 
-    .navButtons {
-        text-align: center;
-    }
-    
-    .startGame {
-        text-align: center;
-        display: inline-block;
-        color: white;
-        margin-top: 1em;
-        padding: 0.5em;
-        border-radius: 4px;
-        border: white solid 4px;
-        font-size: 30px;
-        font-weight: bold;
-        margin-top: 20px;
-        cursor: pointer;
-        background-color: #AC43E6;
-        
+    .displayNoneVertical {
+        display: block;
     }
 
-    .joinGame, .backButton {
-        text-align: center;
+    /* MANCALA BOARD */
+    .mancalaBoardVertical {
+        display: none;
+    }
+
+    .mancalaBoardHorizontal {
+        display: block;
+    }
+
+    .piece {
         display: inline-block;
-        color: white;
-        margin-top: 1em;
-        padding: 0.5em;
-        border-radius: 4px;
-        border: white solid 4px;
-        font-size: 30px;
-        font-weight: bold;
-        margin-top: 20px;
-        cursor: pointer;
-        background-color: #AC43E6;
+    }
+
+    .buttonsVertical {
+        display: none;
+    }
+
+    .buttonsHorizontal {
+        display: block;
+    }
+
+    .opponent, .player {
+        width: 9vw;
+        height: 9vw;
+    }
+
+    .opponent {
+        margin: 0.7% 0.7% 0.5% 0.7%;
+        float: left;
+    }
+
+    .player {
+        float: left;
+        position: relative;
+        margin: 0.5% 0.7% 0.5% 0.7%;
+        top: 2.3vw;
+        font-size: 40px;
+    }
+
+    .mancalaBoard {
+        right: 0;
+    }
+
+    .mancalaBoard {
+        max-width: 85vw;
+        top: 0;
+        display: block;
+        margin-top: 2em;
+        position: relative;
+        height: 24vw;
     }
     
     .mancala {
         position: relative;
         width: 10vw;
-        height: 21.8vw;
+        height: 21.2vw;
         margin: 0.5% 0.5% 0.5% 0.5%;
         text-align: center;
-        font-size: 40px;
+        font-size: 0;
         font-weight: bold;
     }
-    
-    .endGame {
-        text-align: center;
-        bottom: 50%;
-        left: 0;
-        right: 0;
-        width: 400px;
-        background-color: white;
-        position: absolute;
-        font-size: 25px;
-    }
-    
+
     .yourMancala {
+        top: 0;
+        margin: 0.7% 0.7% 0.5% 0.7%;
         float: right;
-        margin: 0.5% 0.7% 0.5% 0.7%;
     }
-    
+
     .opponentMancala {
-        margin: 0.5% 0.7% 0.5% 0.7%;
+        margin: 0.7% 0.6% 0.5% 0.6%;
         float: left;
     }
-    
-    .opponent, .player {
+
+    .pocket {
         border-radius: 50%;
         width: 9vw;
         height: 9vw;
@@ -110,108 +449,169 @@
         font-size: 40px;
         font-weight: bold;
         position: relative;
+        float: left;
+    }
+
+    /* SCORES */
+    .scorePlayerVertical, .scoreOpponentVertical {
+        display: none;
+    }
+
+    .scoreOpponentHorizontal, .scorePlayerHorizontal {
+        display: block;
     }
 
     .pocketScoreOpponent {
         position: absolute;
         bottom: 110%;
         left: 40%;
+        font-size: 40px;
     }
-      .pocketScoreOpponent {
-        position: absolute;
-        bottom: 110%;
-        left: 40%;
-    }
-    
+
     .pocketScorePlayer {
         position: absolute;
-        bottom: -56%;
+        top: 120%;
         left: 40%;
+        font-size: 40px;
     }
-    
-    
-    .opponent {
-        margin: 0.7% 0.7% 0.5% 0.7%;
-        float: left;
+
+    .scoreOpponentHorizontal {
+        left: 0;
+        top: 29vw;
     }
-    
-    .player {
-        top: 2.6vw;
-        float: left;
+
+    .scorePlayerHorizontal {
+        top: 29vw;
+        right: 0;
+    }
+
+    /* NOTIFICATIONS AND INFO */
+    .inviteCode {
         position: relative;
-        margin: 0.5% 0.7% 0.5% 0.7%;
-    }
-
-    .joinGameMenu {
-        bottom: 40%;
+        background: none;
+        border: none;
+        width: 50%;
         left: 0;
-        right: 0;
-        width: 400px;
-        background-color: white;
-        position: absolute;
-        text-align: center;
-        font-size: 25px;
+        font-size: 24px;
     }
-    
-    .gameCode, .nickname, .joinGameSubmit {
-        font-size: 25px;
+    .inviteContainer {
+        position: static;
     }
-
     .turnAlert {
-        text-align: center;
         margin-top: 3em;
+        position: relative;
         font-size: 30px;
     }
 
-    .joinGameSubmit, .nicknameSubmit {
-        text-align: center;
-        display: inline-block;
-        color: white;
-        padding: 0.5em;
-        border-radius: 4px;
-        border: white solid 4px;
-        font-size: 30px;
-        font-weight: bold;
-        cursor: pointer;
-        background-color: #AC43E6;
+    .turnVertical {
+        display: none;
     }
-    
-    .nicknameMenu {
-        bottom: 50%;
-        left: 0;
-        right: 0;
-        width: 400px;
-        background-color: white;
-        position: absolute;
-        text-align: center;
+
+    .turnHorizontal {
+        display: block;
+    }
+
+    .inviteCode {
+        font-size: 30px;
+    }
+
+    .gameCode {
         font-size: 25px;
     }
+
+    /* BUTTONS */
+    .restartButton {
+        top: 400px;
+    }
+
+    .quitButton {
+        position: absolute;
+        bottom: 10px;
+    }
     
+    .joinGameSubmit, .nicknameSubmit {
+        padding: 0.5em;
+        font-size: 25px;
+    }
+   
+    .startGame, .joinGame, .quitYes, .quitNo {
+        display: inline-block;
+    }
+
+    .navButtons {
+        text-align: center;
+    }
+
     .nicknameSubmit, .nicknameChoice {
         font-size: 25px;
     }
-    
-    .inviteCode {
-        position: relative;
-        font-size: 30px;
-        text-align: center;
-        top: 60px;
 
+    /* MENUS AND INPUTS */
+    .endGame, .quitGame {
+        top: 170px;
     }
-    
-    .scoreBoard {
-        position: absolute;
-        font-size: 25px;
-        font-weight: bold;
+
+    .joinGameMenu, .nicknameMenu {
+        top: 24%;
     }
-    
-    .scoreOpponent {
+
+    .joinGameMenu, .endGame, .quitGame {
+        width: 300px;
+    }
+
+    .nicknameMenu {
+        width: 300px;
+    }
+
+}
+
+@media only screen and (min-width: 850px) {
+
+    /* MANCALA BOARD */
+    .mancala {
+        height: 21.7vw;
+    }
+
+    .player {
+        top: 2.9vw;
+    }
+
+    /* BUTTONS */
+    .restartButton {
+        top: 450px;
+    }
+}
+
+@media only screen and (min-width: 1000px) {
+
+    /* SCORES */
+    .scoreOpponentHorizontal {
         left: 0;
-        top: 25vw;
+        top: 27vw;
     }
-    
-    .scorePlayer {
-        top: 25vw;
+    .scorePlayerHorizontal {
+        top: 27vw;
         right: 0;
-    }    
+    }
+
+    /* NOTIFICATIONS AND INFO */
+    .endGame, .quitGame {
+        top: 200px;
+    }
+}
+
+@media only screen and (min-width: 1100px) {
+
+    /* BUTTONS */
+    .restartButton {
+        top: 41vw;
+    }
+}
+
+@media only screen and (min-width: 1460px) {
+
+    /* BUTTONS */
+    .restartButton {
+        top: 36vw;
+    }
 }
