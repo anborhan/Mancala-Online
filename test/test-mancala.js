@@ -4,7 +4,7 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 
 const { app, runServer, closeServer } = require('../server');
-const mancala = require('../mancala/mancalaRouter');
+const mancala = require('../mancala/mancalaAPIRouter');
 const { DATABASE_URL } = require('../config');
 const { Game } = require('../mancala/mancalaModel');
 
