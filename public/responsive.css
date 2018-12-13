@@ -246,13 +246,6 @@
     z-index: 2;
 }
 
-.restartButton {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: -20px;
-}
-
 .backButton {
     position: relative;
     top: 18px;
@@ -285,6 +278,11 @@
     margin-top: 20px;
     cursor: pointer;
     background-color: #AC43E6;
+}
+
+.restartButton {
+    border: black solid 4px;
+    margin-bottom: 10px;
 }
 
 .gameRulesButton, .quitButton {
@@ -582,9 +580,6 @@ input {
     }
 
     /* BUTTONS */
-    .restartButton {
-        top: 400px;
-    }
 
     .quitButton, .gameRulesButton {
         position: absolute;
@@ -660,11 +655,6 @@ input {
     .player {
         top: 2.9vw;
     }
-
-    /* BUTTONS */
-    .restartButton {
-        top: 450px;
-    }
 }
 
 @media only screen and (min-width: 1000px) {
@@ -694,34 +684,10 @@ input {
     }
 }
 
-@media only screen and (min-width: 1100px) {
-
-    /* BUTTONS */
-    .restartButton {
-        top: 41vw;
-    }
-}
-
 @media only screen and (min-width: 1240px) {
 
     /* MENUS AND INPUTS */
     .landingPage {
         top: 165px;
-    }
-}
-
-@media only screen and (min-width: 1400px) {
-
-    /* BUTTONS */
-    .restartButton {
-        top: 36vw;
-    }
-}
-
-@media only screen and (min-width: 1460px) {
-
-    /* BUTTONS */
-    .restartButton {
-        top: 36vw;
     }
 }

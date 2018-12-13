@@ -59,7 +59,7 @@ function getDataFromMancala(nickname) {
     },
     type: 'POST',
     success: function (data) {
-      $(".gamePlayButtons, .quitButton").removeClass("hidden");
+      $(".gamePlayButtons, .footerButtonsVertical").removeClass("hidden");
       gameSuccess(data);
     },
     error: function (data) {
@@ -354,8 +354,8 @@ function displayTurn(data) {
 
 // Displays the end game screen, with final scores and the winner, as well as the ability to restart
 function renderEndGame(currentGame) {
-  $(".gamePlayButtons, .quitButton, .inviteCode").addClass("hidden");
-  $(".endGame, .restartButton").removeClass("hidden");
+  $(".gamePlayButtons, .footerButtonsVertical, .inviteCode").addClass("hidden");
+  $(".endGame").removeClass("hidden");
   $(".turnAlert").addClass("hideVisibility");
   $(".opponent, .player").removeClass("pocket").removeAttr("tabindex");
   let currentPlayer = player - 1;
@@ -369,6 +369,9 @@ function renderEndGame(currentGame) {
     $(".endGame").append(`<div>You won!</div>`)
   } else $(".endGame").append(`<div>${currentGame.players[winner].nickname} is the winner!</div>`)
   //used for a11y purposes
+  $(".endGame").append(`<button class="center restartButton openSansCondensed" type="submit">RESTART</button>
+  `)
+  restartButton();
   winnerNickname = `${currentGame.players[winner].nickname}`
 }
 /////////////////////////////////////
@@ -531,7 +534,7 @@ function resetScreen() {
   $(".mancala").removeClass("blackBorder darkBrown").addClass("whiteBorder").empty();
   $(".joinGameMenu").addClass("hidden");
   $(".startGame, .joinGame").removeClass("hidden");
-  $(".backButton, .nicknameMenu, .inviteCode, .scoreBoard, .gamePlayButtons, .quitButton, .turnAlert").addClass("hidden");
+  $(".backButton, .nicknameMenu, .inviteCode, .scoreBoard, .gamePlayButtons, .footerButtonsVertical, .turnAlert").addClass("hidden");
   $(".opponent, .player").removeClass("pocket blackBorder darkBrown").addClass("whiteBorder").removeAttr("tabindex");
   $(".pocketScoreOpponent, .pocketScorePlayer").html("");
   $(".piece").remove();
@@ -564,7 +567,7 @@ function displayGameBoard(data) {
   if (data) {
     $(".startGame, .joinGame").addClass("hidden");
     provideInviteAndRejoinUrl(data)
-    $(".gamePlayButtons, .quitButton, .inviteCode").removeClass("hidden");
+    $(".gamePlayButtons, .footerButtonsVertical, .inviteCode").removeClass("hidden");
   }
 }
 
@@ -605,13 +608,15 @@ function copyOnClick(rejoinId, inviteId) {
 }
 
 // Restarts the client/returns to main menu on game completion
-$(".restartButton").click(event => {
-  event.preventDefault();
-  renderedGame = false;
-  resetForms();
-  resetScreen();
-  $(".restartButton, .endGame").addClass("hidden");
-})
+function restartButton() {
+  $(".restartButton").click(event => {
+    event.preventDefault();
+    renderedGame = false;
+    resetForms();
+    resetScreen();
+    $(".endGame").addClass("hidden");
+  })
+}
 
 // Return to the main menu from nickname and join game menus
 $(".backButton").click(function () {
@@ -622,7 +627,7 @@ $(".backButton").click(function () {
 // Quit a currently running game
 $(".quitButton").click(function () {
   $(".quitGame").removeClass("hidden");
-  $(".gamePlayButtons, .quitButton").addClass("hidden");
+  $(".gamePlayButtons, .footerButtonsVertical").addClass("hidden");
   $(".inviteCode").addClass("displayNoneVertical");
 })
 
@@ -639,7 +644,7 @@ $(".quitYes").click(function () {
 $(".quitNo").click(function () {
   $(".quitGame").addClass("hidden");
   $(".inviteCode").removeClass("displayNoneVertical");
-  $(".gamePlayButtons, .quitButton").removeClass("hidden");
+  $(".gamePlayButtons, .footerButtonsVertical").removeClass("hidden");
 })
 
 // Prevents button from staying focused after being clicked on
