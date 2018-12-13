@@ -8,19 +8,38 @@
 	<link href="visuals.css" rel="stylesheet" type="text/css" />
 	<!-- Put Fonts Here -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
-	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 <body>
 	<h1 class="header openSansCondensed">MANCALA ONLINE</h1>
+	<section role="region">
+		<div class="landingPage openSansCondensed center borderCurved blackBorder">
+			<div class="welcome">Welcome to Mancala Online!</div>
+			<div class="landingPageSummary">Mancala is one of the oldest games known to man, and is still popular all around the
+				world! Easy to learn but hard to master, Mancala is a fun and challenging game that anyone can play.
+				And now, with Mancala Online, you and your friends can play together, on any device, anywhere,
+				at any time! Click one of the links below to get started!</div>
+			<div class="landingPageExplanation hidden">Using Mancala Online is simple and intuitive!
+				Click "Start Game" to begin a new play session, and enter a nickname you'd like to play as!
+				You will be given an invite code, as well as a link you can use to return to your play session any time.
+				You can share the invite code with a friend, and they can enter it in the "Join Game" menu to join your game!
+				At any time, you can leave the session and return by simply using your personal game URL.
+				Have fun!</div>
+			<button class="returnMenuButton openSansCondensed center hidden" type="button">GO BACK</button>
+			<button class="center landingPageButton openSansCondensed" onclick="window.open('https://endlessgames.com/wp-content/uploads/Mancala_Instructions.pdf', '_blank')"
+			 type="button">GAME RULES</button>
+			<button class="center landingPageButton openSansCondensed siteExplanationButton" type="button">HOW TO START A GAME</button>
+			<button class="center landingPageButton openSansCondensed letsPlayButton" type="button">LET'S PLAY!</button>
+		</div>
+	</section>
 	<main role="main" class="main">
 		<div class="screenReaderOnly" aria-live="assertive"></div>
 		<form action="#" class="center openSansCondensed blackBorder borderCurved hidden nicknameMenu">
 			<fieldset class="center">
 				<legend class="hidden" aria-live="polite">Please enter a nickname </legend>
 				Choose a Nickname:<br>
-				<input class="nicknameChoice openSansCondensed" type="text" name="nickname" placeholder="Player One"
-				 maxlength="30"><br>
+				<input class="nicknameChoice openSansCondensed" type="text" name="nickname" placeholder="Player One" maxlength="30"><br>
 				<input class="nicknameSubmit openSansCondensed" type="submit" value="Submit">
 			</fieldset>
 			<button class="center backButton openSansCondensed hidden" type="button">BACK</button>
@@ -42,8 +61,8 @@
 		<section role="region" class="mancalaBoardVertical">
 			<div class="mancalaBoard whiteBoardBorder borderCurved center mancalaPlayerVertical">
 				<div class="navButtons buttonsVertical center">
-					<button class="center startGame openSansCondensed" type="submit">START GAME</button>
-					<button class="center joinGame openSansCondensed" type="submit">JOIN GAME</button>
+					<button class="center startGame openSansCondensed hidden" type="submit">START GAME</button>
+					<button class="center joinGame openSansCondensed hidden" type="submit">JOIN GAME</button>
 					<button class="center restartButton openSansCondensed hidden" type="submit">RESTART</button>
 				</div>
 				<span class="openSansCondensed scoreBoard scorePlayer hidden scorePlayerVertical " aria-live="polite">Player One</span>
@@ -52,7 +71,8 @@
 				<span class="mancala whiteBorder yourMancala borderCurved" data-pocket-order="7" id="Pocket7"></span>
 				<div class="pocketPair">
 					<span class=" whiteBorder opponent" data-pocket-order="8">
-						<span class = "screenReaderOnly">Pocket 8 contains </span><span class="pocketScoreOpponent" id="Pocket8"></span><span class="screenReaderOnly"> pieces</span>
+						<span class="screenReaderOnly">Pocket 8 contains </span><span class="pocketScoreOpponent" id="Pocket8"></span><span
+						 class="screenReaderOnly"> pieces</span>
 					</span>
 					<span class=" whiteBorder player" data-pocket-order="6">
 						<div class="pocketScorePlayer" id="Pocket6"></div>
@@ -111,7 +131,8 @@
 				<span class="openSansCondensed scoreBoard scorePlayer hidden scorePlayerVertical " aria-live="polite">Player One</span>
 				<span class="errorMessage center openSansCondensed" aria-live="assertive"></span>
 				<span class="mancala whiteBorder opponentMancala borderCurved" data-pocket-order="14" id="Pocket14"></span>
-				<span class="openSansCondensed scoreBoard scoreOpponent scoreOpponentHorizontal hidden" aria-live="polite">Player Two
+				<span class="openSansCondensed scoreBoard scoreOpponent scoreOpponentHorizontal hidden" aria-live="polite">Player
+					Two
 					(Not joined)</span>
 
 				<span class=" whiteBorder opponent" data-pocket-order="13">
@@ -163,16 +184,19 @@
 			<div class="turnAlert openSansCondensed hidden turnHorizontal" aria-live="polite"></div>
 		</section>
 		<div class="endGame center openSansCondensed blackBorder borderCurved hidden" aria-live="assertive">FINAL SCORE</div>
-		<div class="quitGame center openSansCondensed blackBorder borderCurved hidden" aria-live="assertive">Are you sure you want to quit?
+		<div class="quitGame center openSansCondensed blackBorder borderCurved hidden" aria-live="assertive">Are you sure you
+			want to quit?
 			<button class="quitYes openSansCondensed" type="button">Yes</button>
 			<button class="quitNo openSansCondensed" type="button">No</button>
 		</div>
 		<div class="navButtons buttonsHorizontal">
-			<button class="center startGame openSansCondensed" type="submit">START GAME</button>
-			<button class="center joinGame openSansCondensed" type="submit">JOIN GAME</button>
+			<button class="center startGame openSansCondensed hidden" type="submit">START GAME</button>
+			<button class="center joinGame openSansCondensed hidden" type="submit">JOIN GAME</button>
 			<button class="center restartButton openSansCondensed hidden" type="submit">RESTART</button>
 		</div>
-		<div class="inviteContainer"><div class="inviteCode moveDown center openSansCondensed burderCurved hidden"></div></div>
+		<div class="inviteContainer">
+			<div class="inviteCode moveDown center openSansCondensed burderCurved hidden"></div>
+		</div>
 		<button class="center quitButton openSansCondensed hidden" type="submit">QUIT GAME</button>
 	</main>
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>

@@ -362,7 +362,9 @@ function renderEndGame(currentGame) {
   $(".endGame").append(`<div>Your Score: ${currentGame.gameState.scores[currentPlayer]}</div>`)
   $(".endGame").append(`<div>${currentGame.players[currentPlayer ? 0 : 1].nickname}'s Score: ${currentGame.gameState.scores[currentPlayer ? 0 : 1]}</div>`)
   let winner = currentGame.gameState.winner - 1;
-  if (currentGame.gameState.winner && currentGame.gameState.winner == player) {
+  if (currentGame.gameState.scores[0] === currentGame.gameState.scores[1]) {
+    $(".endGame").append(`<div>It was a tie!</div>`)
+  } else if (currentGame.gameState.winner && currentGame.gameState.winner == player) {
     $(".endGame").append(`<div>You won!</div>`)
   } else $(".endGame").append(`<div>${currentGame.players[winner].nickname} is the winner!</div>`)
   //used for a11y purposes
@@ -635,6 +637,25 @@ $(".quitNo").click(function () {
   $(".quitGame").addClass("hidden");
   $(".inviteCode").removeClass("displayNoneVertical");
   $(".quitButton").removeClass("hidden");
+})
+
+$(".landingPageButton, .returnMenuButton").mouseup(function() {
+  $(this).blur();
+})
+
+$(".letsPlayButton").click(function() {
+  $(".startGame, .joinGame").removeClass("hidden");
+  $(".landingPage").addClass("hidden");
+})
+
+$(".siteExplanationButton").click(function() {
+  $(".landingPageExplanation, .returnMenuButton").removeClass("hidden");
+  $(".landingPageSummary, .landingPageButton").addClass("hidden")
+})
+
+$(".returnMenuButton").click(function() {
+  $(".landingPageExplanation, .returnMenuButton").addClass("hidden");
+  $(".landingPageSummary, .landingPageButton").removeClass("hidden");
 })
 
 /////////////////////////////////////
