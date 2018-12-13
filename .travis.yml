@@ -4,6 +4,6 @@ deploy:
   provider: heroku
   api_key:
     secure: GG7eBcGbBIPtSaStsPSpC7gf6TzXqIUlKasWuuPpa0XQthjZcURoLGSstu5V/K/oaJOE7ksSsCyulOzXCgv0lSw2fFL5xW0mlNvDZrm/Lwl6RO+W9/e/BaQs5qPugl6l/aVc68uh/ivs4RM6QOBFMUQ/jGpE4jl0Vx5iiN0mzFfVxS36/xK7+83mmHgF8gKZRnU9D14lvkO/NVRmihp8yfOoWtQ5h7y4KGcuy5YRTcnxwioq1+IzDiOUhRJAF79sWXKfzkVl6FkoULvhtinaXycrrIjieUx4GU9d84iz6SBy3N8/QQqXDNeEnNRyWFbdXMpIERepPoQMRCVP2nnr7P6USWGiPGYmOsb/ketoEPuMehmOhhNqVHzLXKyrugjntUbk7asG9IsvJ2g7tU4aYvIL0eJNrJIitbf6nuidRFlM4tyYeDPiezSjCHD0pij+zLTHGTLy8zwzAWGKuD6MGBNPL2mqfybW+lZRQ2ASH2kPjGRMD4vNNX2Snk8o2xZsByZrQK4QgcldVT1T4LsfcfibBVzFNE2maSG8W5f7W7l1IvGiavYsJKPYTh+dzTBSH9G2MwprPNkQT54E7xgCvg5gslfIzV/F46CXqynxhCREO0/xkmnucraO4vLUoIR427E5icOgozPqhYf7s9DNasGSECtvWrDZ+vf3BAYOY00=
-  app: immense-island-72794
+  app: mancala-online
   on:
     repo: anborhan/Mancala-Online-Capstone
