@@ -195,18 +195,15 @@ router.put('/:playercode', jsonParser, (req, res) => {
             //Turn is taken (everything went correctly)
             game.gameState = result;
             game.lastModified = Date.now();
+            if (game.gameState.gameOver) {
+                game.gameState.scores = result.scores;
+                game.gameState.numberOfTurns = game.gameState.turn;
+                game.gameState.results = gameResult;
+                game.gameState.tie = result.tie;
+                console.log({"game": game})
+            }
+            game.gameState.lastPocket = req.body.pocket;
             game.save().then(() => {
-                if (game.gameOver) {
-                    game.gameState.currentPlayer = undefined;
-                    game.gameState.scores = result.scores;
-                    game.gameState.numberOfTurns = game.gameState.turn;
-                    game.gameState.turn = undefined;
-                    game.gameState.results = `${gameResult}`;
-                    game.gameState.tie = result.tie;
-                }
-                game.gameState.lastPocket = req.body.pocket;
-                game.gameState.startingPlayer = undefined;
-                console.log({ "game": game })
                 return res.status(200).json(game.serialize(req.params.playercode));
 
                 //end of success code

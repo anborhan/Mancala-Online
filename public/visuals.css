@@ -52,10 +52,6 @@ a, button, button::-moz-focus-inner {
   border: 0;
 }
 
- {
-    outline: none;
-  }
-
 /* PIECES AND POCKETS */
 
 .piece {
@@ -92,8 +88,4 @@ a, button, button::-moz-focus-inner {
 .center {
     margin-left: auto;
     margin-right: auto;
-}
-
-.moveDown {
-    top: 86px;
 }

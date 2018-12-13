@@ -430,6 +430,7 @@ function checkForGameChangesForAccessibility(data, currentGame) {
   if (data && data.gameState && currentGame && currentGame.gameState && data.gameState.turn !== currentGame.gameState.turn) {
     let ariaLiveTurnDescription = describeTurnChange(data, currentGame)
     let ariaLiveGameDescription = describeGameState(data, currentGame)
+    console.log(data.gameState.lastPocket)
     if (ariaLiveGameDescription) {
       $(".ariaLiveAnnounceUpdates").html(ariaLiveGameDescription);
 
@@ -524,12 +525,12 @@ function rejoinGame(playerToken) {
 // Resets the screen to the main menu and deletes ongoing game from local storage
 function resetScreen() {
   $(".mancalaBoard").removeClass("brown blackBoardBorder").addClass("whiteBoardBorder");
-  $(".pocket").removeClass("blackBorder darkBrown").addClass("whiteBorder");
+  $(".pocket").removeClass("blackBorder darkBrown");
   $(".mancala").removeClass("blackBorder darkBrown").addClass("whiteBorder").empty();
   $(".joinGameMenu").addClass("hidden");
   $(".startGame, .joinGame").removeClass("hidden");
   $(".backButton, .nicknameMenu, .inviteCode, .scoreBoard, .quitButton, .turnAlert").addClass("hidden");
-  $(".opponent, .player").removeClass("pocket").removeAttr("tabindex");
+  $(".opponent, .player").removeClass("pocket blackBorder darkBrown").addClass("whiteBorder").removeAttr("tabindex");
   $(".pocketScoreOpponent, .pocketScorePlayer").html("");
   $(".piece").remove();
   $(".scoreOpponent").html("Player Two (Not joined)");

@@ -357,6 +357,10 @@ input {
 /* Non-mobile, grid */
 @media only screen and (min-width: 640px) {
 
+    .moveDown {
+        top: 86px;
+    }
+    
     .header {
         font-size: 80px;
         color: white;
