@@ -549,7 +549,7 @@ function resetScreen() {
 }
 
 // Displays game board from main menu
-function displayGameBoard(data) {
+function displayGameBoard(data) { 
   $(".mancalaBoard").addClass("brown blackBoardBorder");
   $(".mancalaBoard").removeClass("whiteBoardBorder");
   $(".opponent, .player").addClass("pocket");
