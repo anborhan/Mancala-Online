@@ -39,11 +39,11 @@
     outline: none;
 }
 
-.startGame:hover, .joinGame:hover, .backButton:hover, .restartButton:hover, .joinGameSubmit:hover, .nicknameSubmit:hover, .quitButton:hover, .quitYes:hover, .quitNo:hover, .landingPageButton:hover, .returnMenuButton:hover{
+.startGame:hover, .joinGame:hover, .backButton:hover, .restartButton:hover, .joinGameSubmit:hover, .nicknameSubmit:hover, .quitButton:hover, .quitYes:hover, .quitNo:hover, .landingPageButton:hover, .returnMenuButton:hover, .gameRulesButton:hover{
     background-color: red;
 }
 
-.startGame:focus, .joinGame:focus, .backButton:focus, .restartButton:focus, .joinGameSubmit:focus, .nicknameSubmit:focus, .quitButton:focus, .quitYes:focus, .quitNo:focus, .landingPageButton:focus, .returnMenuButton:focus {
+.startGame:focus, .joinGame:focus, .backButton:focus, .restartButton:focus, .joinGameSubmit:focus, .nicknameSubmit:focus, .quitButton:focus, .quitYes:focus, .quitNo:focus, .landingPageButton:focus, .returnMenuButton:focus, .gameRulesButton:focus {
     background-color: red;
     outline: none;
 }

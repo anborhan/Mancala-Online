@@ -59,7 +59,7 @@ function getDataFromMancala(nickname) {
     },
     type: 'POST',
     success: function (data) {
-      $(".quitButton").removeClass("hidden");
+      $(".gamePlayButtons, .quitButton").removeClass("hidden");
       gameSuccess(data);
     },
     error: function (data) {
@@ -81,7 +81,7 @@ function joinGame() {
     event.preventDefault();
     displayGameBoard();
     $(".joinGameMenu, .backButton").removeClass("hidden");
-    $(".startGame., joinGame").addClass("hidden");
+    $(".startGame, .joinGame").addClass("hidden");
   });
 }
 
@@ -123,7 +123,7 @@ function joinExistingGame(nickname, gameCode) {
 window.setInterval(function () {
   if (!currentGame || !Array.isArray(currentGame.players)) return;
   retrieveUpdatedGame();
-}, 5000);
+}, 2000);
 
 // Runs a get request to provide the most up-to-date information about the game, including whether a new player has joined
 function retrieveUpdatedGame() {
@@ -132,7 +132,7 @@ function retrieveUpdatedGame() {
     type: 'GET',
     success: function (data) {
       if (player && player === 1 && data.players.length > 1) {
-        $(".inviteCode").removeClass("moveDown");
+        $(".inviteCode, .gamePlayButtons").removeClass("moveDown");
         if (!data.gameState.gameOver) {
           $(".turnAlert").removeClass("hidden");
         }
@@ -256,6 +256,7 @@ function provideInviteAndRejoinUrl(data) {
       //Copy to Clipboard
     } else if (data && data.players[1].gameRejoinUrl) {
       $inviteCode.removeClass("moveDown");
+      $(".gamePlayButtons").removeClass("moveDown");
       $inviteCode.html(`<br><strong>YOUR REJOIN LINK IS: </strong><legend class="hidden">Your Rejoin Link:</legend><input id="rejoin" value="${data.players[player - 1].gameRejoinUrl}" readonly>`);
       copyOnClick("rejoin")
     }
@@ -342,7 +343,7 @@ function displayTurn(data) {
   }
   if (currentGame && currentGame.players && currentGame.players.length > 1) {
     $(".turnAlert").removeClass("hidden");
-    $(".inviteCode").removeClass("moveDown");
+    $(".inviteCode, .gamePlayButtons").removeClass("moveDown");
   }
   if ((currentGame.gameState.currentPlayer === 1 && player === 1) || (currentGame.gameState.currentPlayer === 2 && player === 2)) {
     $(".turnAlert").html("It's your turn!")
@@ -353,7 +354,7 @@ function displayTurn(data) {
 
 // Displays the end game screen, with final scores and the winner, as well as the ability to restart
 function renderEndGame(currentGame) {
-  $(".quitButton, .inviteCode").addClass("hidden");
+  $(".gamePlayButtons, .quitButton, .inviteCode").addClass("hidden");
   $(".endGame, .restartButton").removeClass("hidden");
   $(".turnAlert").addClass("hideVisibility");
   $(".opponent, .player").removeClass("pocket").removeAttr("tabindex");
@@ -432,7 +433,6 @@ function checkForGameChangesForAccessibility(data, currentGame) {
   if (data && data.gameState && currentGame && currentGame.gameState && data.gameState.turn !== currentGame.gameState.turn) {
     let ariaLiveTurnDescription = describeTurnChange(data, currentGame)
     let ariaLiveGameDescription = describeGameState(data, currentGame)
-    console.log(data.gameState.lastPocket)
     if (ariaLiveGameDescription) {
       $(".ariaLiveAnnounceUpdates").html(ariaLiveGameDescription);
 
@@ -531,13 +531,13 @@ function resetScreen() {
   $(".mancala").removeClass("blackBorder darkBrown").addClass("whiteBorder").empty();
   $(".joinGameMenu").addClass("hidden");
   $(".startGame, .joinGame").removeClass("hidden");
-  $(".backButton, .nicknameMenu, .inviteCode, .scoreBoard, .quitButton, .turnAlert").addClass("hidden");
+  $(".backButton, .nicknameMenu, .inviteCode, .scoreBoard, .gamePlayButtons, .quitButton, .turnAlert").addClass("hidden");
   $(".opponent, .player").removeClass("pocket blackBorder darkBrown").addClass("whiteBorder").removeAttr("tabindex");
   $(".pocketScoreOpponent, .pocketScorePlayer").html("");
   $(".piece").remove();
   $(".scoreOpponent").html("Player Two (Not joined)");
   $(".scorePlayer").html("Player One's Score: 0");
-  $(".inviteCode").addClass("moveDown");
+  $(".inviteCode, .gamePlayButtons").addClass("moveDown");
   if (localStorage && localStorage.removeItem) {
     localStorage.removeItem("mancalaGameMyPlayerToken");
   }
@@ -564,7 +564,7 @@ function displayGameBoard(data) {
   if (data) {
     $(".startGame, .joinGame").addClass("hidden");
     provideInviteAndRejoinUrl(data)
-    $(".quitButton, .inviteCode").removeClass("hidden");
+    $(".gamePlayButtons, .quitButton, .inviteCode").removeClass("hidden");
   }
 }
 
@@ -622,10 +622,11 @@ $(".backButton").click(function () {
 // Quit a currently running game
 $(".quitButton").click(function () {
   $(".quitGame").removeClass("hidden");
-  $(".quitButton").addClass("hidden");
+  $(".gamePlayButtons, .quitButton").addClass("hidden");
   $(".inviteCode").addClass("displayNoneVertical");
 })
 
+// Clarifies that the user actually wants to quit
 $(".quitYes").click(function () {
   $(".quitGame").addClass("hidden");
   $(".inviteCode").removeClass("displayNoneVertical");
@@ -634,26 +635,31 @@ $(".quitYes").click(function () {
   resetScreen();
 })
 
+// Removes the quit menu and returns to the game
 $(".quitNo").click(function () {
   $(".quitGame").addClass("hidden");
   $(".inviteCode").removeClass("displayNoneVertical");
-  $(".quitButton").removeClass("hidden");
+  $(".gamePlayButtons, .quitButton").removeClass("hidden");
 })
 
+// Prevents button from staying focused after being clicked on
 $(".landingPageButton, .returnMenuButton").mouseup(function() {
   $(this).blur();
 })
 
+// Removes the landing page menu so the user can start playing
 $(".letsPlayButton").click(function() {
   $(".startGame, .joinGame").removeClass("hidden");
   $(".landingPage").addClass("hidden");
 })
 
+// Explains how the site works to a new user
 $(".siteExplanationButton").click(function() {
   $(".landingPageExplanation, .returnMenuButton").removeClass("hidden");
   $(".landingPageSummary, .landingPageButton").addClass("hidden")
 })
 
+// Goes back to the main landing page menu
 $(".returnMenuButton").click(function() {
   $(".landingPageExplanation, .returnMenuButton").addClass("hidden");
   $(".landingPageSummary, .landingPageButton").removeClass("hidden");
@@ -669,64 +675,3 @@ $(function () {
   assessUrlForRejoin();
 })
 /////////////////////////////////////
-
-// CURRENTLY UNUSED CODE / STRETCH GOALS INCLUDING MINIMIZING PIECE OVERLAP DURING CREATION OF COORDINATES
-  // minimizePieceOverlap();
-  /* pockets.forEach(pocket => {
-     console.log(pocket)
-   })*/
-/*
-function minimizePieceOverlap() {
-
-  $(".pocket").each(function (index, pocket) {
-    let distances = [];
-
-    //finding each piece within the pocket
-    let $pieces = $(pocket).find(".piece")
-    $pieces.each(function (index, piece) {
-
-      //found piece
-      let css = cssPercentagesFromPiece(piece)
-      for (let i = 0; i < $pieces.length; i++) {
-        if (i === index) continue
-        let otherCss = cssPercentagesFromPiece($pieces[i]);
-        let distance = Math.sqrt(Math.pow(Math.abs(css.left - otherCss.left), 2) + Math.pow(Math.abs(css.top - otherCss.top), 2))
-        distances.push(distance);
-      }
-    })
-
-   getDistances(distances)
-  })
-}
-
-function cssPercentagesFromPiece(piece) {
-  let top = $(piece).css("top");
-  top = parseInt(top);
-  let left = $(piece).css("left");
-  left = parseInt(left);
-  return { top, left }
-}
-
-function getDistances(distances) {
-}
-
-function rearrangePiece() {
-
-}
-
-function loadSavedGame() {
-  if (currentGame && currentGame.gameState.gameOver === false && myPlayerToken) {
-    displayGameBoard(data);
-    if (Array.isArray(loadedGame.players)) {
-      const loadedGamePlayerNumber = loadedGame.players.findIndex(player => player.playerToken === myPlayerToken)
-      if (loadedGamePlayerNumber !== -1) {
-        player = loadedGamePlayerNumber + 1;
-        currentGame = loadedGame;
-        retrieveUpdatedGame();
-      }
-    }
-  }
-}*/
-
-//need to translate coordinates of distance from center to distance from top left
-//any function that gives point inside circle expressed as top/left percentage scale

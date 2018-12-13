@@ -45,7 +45,6 @@ router.post('/', (req, res) => {
     const inviteCode = generateCode()
     const gameInviteForPlayerTwo = generateUrl(inviteCode, hostUrl, "/mancala/join")
     const gameRejoinLink = generateRejoinUrl(playerOneCode, hostUrl, "/game/")
-    console.log(gameRejoinLink)
     Game.create({
         players: [{
             username,
@@ -69,12 +68,6 @@ router.post('/', (req, res) => {
             res.status(500).json({ error: "something went wrong" })
         })
     
-})
-
-router.put('/rename/:nickname', (req, res) => {
-    Game
-        .findOneAndUpdate({ "players.playerToken": req.body.playerToken}, {$set: {"players.$.nickname": req.query.nickname}}, {new: true})
-        .then(game => res.status(200).json(game.serialize(playerOneCode)))
 })
 
 router.get('/:playercode', (req, res) => {
@@ -103,8 +96,8 @@ router.get('/:playercode', (req, res) => {
 //add player
 router.get('/join/:invitecode', (req, res) => {
     //set nickname
-    const username = req.query.username
-    const nickname = req.query.nickname || "Player Two"
+    const username = (req.body && req.body.username) ||req.query.username
+    const nickname = (req.body && req.body.nickname) || req.query.nickname || "Player Two"
     let hostUrl = req.headers.host
     const playerTwoCode = generateCode();
     const gameRejoinLink = generateRejoinUrl(playerTwoCode, hostUrl, "/game/")
@@ -147,12 +140,6 @@ router.get('/join/:invitecode', (req, res) => {
         console.log(err);
         res.status(err.code || 500).json({ error: err.message || "Something went wrong!" })
     })
-})
-
-router.get('/:id', (req, res) => {
-    Game
-        .findOne({ _id: req.params.id })
-        .then(game => res.status(200).json(game.serialize()))
 })
 
 //take turn
